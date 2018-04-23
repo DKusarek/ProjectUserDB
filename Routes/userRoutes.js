@@ -1,29 +1,13 @@
 var express = require('express');
 
 var routes = function (User) {
-    var usersRouter = express.Router();
+    var userRouter = express.Router();
+    var userController = require('../Controllers/userController')(User);
+    userRouter.route('/')
+        .post(userController.post)
+        .get(userController.get);
 
-    usersRouter.route('/')
-        .post(function (req, res) {
-            var user = new User(req.body);
-            user.save();
-            res.status(201).send(user);
-        })
-        .get(function (req, res) {
-            var query = {};
-            if (req.query.genre) {
-                query.genre = req.query.genre;
-            }
-            User.find(query, function (err, users) {
-                if (err) {
-                    console.status(500).log(err);
-                } else {
-                    res.json(users);
-                }
-            })
-        });
-
-    usersRouter.use('/:userId', function (req, res, next) {
+    userRouter.use('/:userId', function (req, res, next) {
         User.findById(req.params.userId, function (err, user) {
             if (err) {
                 res.status(500).send(err);
@@ -36,7 +20,7 @@ var routes = function (User) {
         });
     });
 
-    usersRouter.route('/:userId')
+    userRouter.route('/:userId')
         .get(function (req, res) {
             res.json(req.user);
         })
@@ -78,7 +62,7 @@ var routes = function (User) {
                 }
             });
         });
-    return usersRouter;
+    return userRouter;
 };
 
 module.exports = routes;

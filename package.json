@@ -10,9 +10,14 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "bootstrap": "^4.1.0",
     "express": "^4.16.3",
     "gulp": "^3.9.1",
+    "gulp-mocha": "^5.0.0",
     "gulp-nodemon": "^2.2.1",
-    "mongoose": "^5.0.15"
+    "jquery": "^3.3.1",
+    "mongoose": "^5.0.15",
+    "should": "^13.2.1",
+    "sinon": "^4.5.0"
   }
 }
