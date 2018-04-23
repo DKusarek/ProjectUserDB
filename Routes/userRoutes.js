@@ -23,7 +23,7 @@ var routes = function (User) {
             })
         });
 
-    usersRouter.use('/:userId', function (req,res,next) {
+    usersRouter.use('/:userId', function (req, res, next) {
         User.findById(req.params.userId, function (err, user) {
             if (err) {
                 res.status(500).send(err);
@@ -46,10 +46,10 @@ var routes = function (User) {
             req.user.firstName = req.body.firstName;
             req.user.lastName = req.body.lastName;
             req.user.dateOfBirth = req.body.dateOfBirth;
-            req.user.save(function(err){
-                if(err){
+            req.user.save(function (err) {
+                if (err) {
                     res.status(500).send(err);
-                }else{
+                } else {
                     res.json(req.user);
                 }
             });
@@ -61,11 +61,20 @@ var routes = function (User) {
             for (var u in req.body) {
                 req.user[u] = req.body[u];
             }
-            req.user.save(function(err){
-                if(err){
+            req.user.save(function (err) {
+                if (err) {
                     res.status(500).send(err);
-                }else{
+                } else {
                     res.json(req.user);
+                }
+            });
+        })
+        .delete(function (req, res) {
+            req.user.remove(function (err) {
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    res.status(204).send('User removed');
                 }
             });
         });
