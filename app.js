@@ -5,9 +5,13 @@ var express = require('express'),
 var db = mongoose.connect('mongodb://localhost/userAPI');
 var User = require('./models/userModel');
 var app = express();
+app.use(express.static(__dirname + '/Views'));
+app.use(express.static(__dirname + '/css'));
+app.use(express.static(__dirname + '/node_modules/jquery'));
+app.use(express.static(__dirname + '/node_modules/bootstrap'));
+app.use(express.static(__dirname + '/js'));
 
 var port = process.env.PORT || 3000;
-
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -19,7 +23,7 @@ app.use('/api/users', usersRouter);
 
 
 app.get('/', function (req, res) {
-    res.send('welcome to my API1');
+      res.sendFile('index.html');
 });
 
 app.listen(port, function () {
