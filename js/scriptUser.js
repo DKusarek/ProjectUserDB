@@ -10,12 +10,6 @@ $(document).ready(function () {
     var createUser = $('#createUser');
     var updateUser = $('#updateUser');
 
-    var groupListForm = $('#groupListForm');
-    var createGroup = $('#createGroup');
-    var readGroup = $('#readGroup');
-    var updateGroup = $('#updateGroup');
-    var deleteGroup = $('#deleteGroup');
-    var outputGroup = $('#outputGroup');
     var numberOfItems = 0;
 
 
