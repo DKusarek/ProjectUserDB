@@ -1,40 +1,36 @@
 var express = require('express');
 
-var routes = function (User) {
-    var userRouter = express.Router();
-    var userController = require('../Controllers/userController')(User);
-    userRouter.route('/')
-        .post(userController.post)
-        .get(userController.get);
+var routes = function (Group) {
+    var groupRouter = express.Router();
+    var groupController = require('../Controllers/groupController')(Group);
+    groupRouter.route('/')
+        .post(groupController.post)
+        .get(groupController.get);
 
-    userRouter.use('/:userId', function (req, res, next) {
-        User.findById(req.params.userId, function (err, user) {
+    groupRouter.use('/:groupId', function (req, res, next) {
+        Group.findById(req.params.groupId, function (err, group) {
             if (err) {
                 res.status(500).send(err);
-            } else if (user) {
-                req.user = user;
+            } else if (group) {
+                req.group = group;
                 next();
             } else {
-                res.status(404).send('User not found');
+                res.status(404).send('Group not found');
             }
         });
     });
 
-    userRouter.route('/:userId')
+    groupRouter.route('/:groupId')
         .get(function (req, res) {
-            res.json(req.user);
+            res.json(req.group);
         })
         .put(function (req, res) {
-            req.user.userName = req.body.userName;
-            req.user.password = req.body.password;
-            req.user.firstName = req.body.firstName;
-            req.user.lastName = req.body.lastName;
-            req.user.dateOfBirth = req.body.dateOfBirth;
-            req.user.save(function (err) {
+            req.group.groupName = req.body.groupName;
+            req.group.save(function (err) {
                 if (err) {
                     res.status(500).send(err);
                 } else {
-                    res.json(req.user);
+                    res.json(req.group);
                 }
             });
         })
@@ -43,26 +39,27 @@ var routes = function (User) {
                 delete req.body._id;
             }
             for (var u in req.body) {
-                req.user[u] = req.body[u];
+                req.group[u] = req.body[u];
             }
-            req.user.save(function (err) {
+            req.group.save(function (err) {
                 if (err) {
                     res.status(500).send(err);
                 } else {
-                    res.json(req.user);
+                    res.json(req.group);
                 }
             });
         })
         .delete(function (req, res) {
-            req.user.remove(function (err) {
+            req.group.remove(function (err) {
                 if (err) {
                     res.status(500).send(err);
                 } else {
-                    res.status(204).send('User removed');
+                    res.status(204).send('Group removed');
                 }
             });
         });
-    return userRouter;
+    return groupRouter;
+    return groupRouter;
 };
 
 module.exports = routes;

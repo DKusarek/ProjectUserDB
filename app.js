@@ -1,8 +1,14 @@
 var express = require('express'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser');
-
-var db = mongoose.connect('mongodb://localhost/userAPI');
+const sqlite3 = require('sqlite3').verbose();
+var dbr = mongoose.connect('mongodb://localhost/userAPI');
+var db = new sqlite3.Database('./appDb.db', (err) => {
+  if (err) {
+    console.error(err.message);
+  }
+  console.log('Connected to the appDb database.');
+});
 var User = require('./models/userModel');
 var Group = require('./models/groupModel');
 var app = express();
@@ -19,10 +25,21 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 usersRouter = require('./Routes/userRoutes')(User);
-groupsRouter = require('./Routes/groupsRouter')(User);
+groupsRouter = require('./Routes/groupsRouter')(Group);
+
+db.serialize(() => {
+  db.each(`SELECT firstName as id,
+                  lastName as name
+           FROM Users`, (err, row) => {
+    if (err) {
+      console.error(err.message);
+    }
+    console.log(row.id + "\t" + row.name);
+  });
+});
 
 app.use('/api/users', usersRouter);
-
+app.use('/api/groups', groupsRouter);
 
 app.get('/', function (req, res) {
       res.sendFile('index.html');
