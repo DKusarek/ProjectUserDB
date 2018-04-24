@@ -1,3 +1,6 @@
+header {
+  pragma: 'no-cache'
+}
 table{
     margin: 20px;
 }
@@ -6,4 +9,10 @@ td{
 }
 .outputDivs{
     margin: 50px;
+}
+.submitButton{
+    float: right;
+}
+.hidden{
+    display: none;
 }

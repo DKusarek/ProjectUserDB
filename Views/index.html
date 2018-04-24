@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+   <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Expires" CONTENT="-1">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -9,7 +11,9 @@
     <link rel="stylesheet" href="/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/style.css">
     <script src="/dist/jquery.min.js" type="text/javascript"></script>
+    <script src="/htmlContent.js" type="text/javascript"></script>
     <script src="/script.js" type="text/javascript"></script>
+
 </head>
 
 <body>
@@ -19,37 +23,66 @@
     <div class="container">
         <div class="row">
             <div class="col-sm">
-               <h2>Managing users</h2>
+                <h2>Managing users</h2>
                 <table>
                     <tr>
                         <td>
                             <h5>Show List of users</h5>
                         </td>
-                        <td><button id="readUser" class="btn btn-info btn-large btn-light">Show</button></td>
+                        <td><button type="button" id="showReadUserOutput" class="btn btn-info btn-large btn-light">Show</button></td>
                     </tr>
                     <tr>
                         <td>
                             <h5>Add user</h5>
                         </td>
-                        <td><button id="createUser" class="btn btn-info btn-large btn-light">Add</button></td>
+                        <td><button id="showCreateUserForm" class="btn btn-info btn-large btn-light">Add</button></td>
                     </tr>
                     <tr>
                         <td>
                             <h5>Delete user</h5>
                         </td>
-                        <td><button id="deleteUser" class="btn btn-info btn-large btn-light">Delete</button></td>
+                        <td><button id="showDeleteUserForm" class="btn btn-info btn-large btn-light">Delete</button></td>
                     </tr>
                     <tr>
                         <td>
                             <h5>Edit user</h5>
                         </td>
-                        <td><button id="updateUser" class="btn btn-info btn-large btn-light">Edit</button></td>
+                        <td><button id="showUpdateUserForm" class="btn btn-info btn-large btn-light">Edit</button></td>
                     </tr>
                 </table>
-                <div id="outputUser" class="outputDivs"></div>
+                <div id="formCreateUser" class="hidden">
+                    <h3>Create User</h3>
+                    <table>
+                        <tr>
+                            <td><label for="userName">userName</label></td>
+                            <td><input type="text" name="userName" id="userName"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="password">Password</label></td>
+                            <td><input type="password" name="password" id="password"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="firstName">firstName</label></td>
+                            <td><input type="text" name="firstName" id="firstName"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="lastName">lastName</label></td>
+                            <td><input type="text" name="lastName" id="lastName"></td>
+                        </tr>
+                        <tr>
+                            <td> <label for="dateOfBirth">dateOfBirth</label></td>
+                            <td> <input type="date" name="dateOfBirth" id="dateOfBirth"></td>
+                        </tr>
+                    </table>
+
+                    <button id="createUser" class="btn btn-info btn-large btn-light submitButton">Add</button>
+                </div>
+                <div id="outputUser" class="hidden"></div>
+                <div id="formUpdateUser" class="hidden"></div>
+                <div id="formDeleteUser" class="hidden"></div>
             </div>
             <div class="col-sm">
-               <h2>Managing user groups</h2>
+                <h2>Managing user groups</h2>
                 <table>
                     <tr>
                         <td>
@@ -77,8 +110,9 @@
                     </tr>
                 </table>
                 <div id="outputGroup" class="outputDivs"></div>
+
             </div>
-    </div>
+        </div>
     </div>
 </body>
 

@@ -4,6 +4,7 @@ var express = require('express'),
 
 var db = mongoose.connect('mongodb://localhost/userAPI');
 var User = require('./models/userModel');
+var Group = require('./models/groupModel');
 var app = express();
 app.use(express.static(__dirname + '/Views'));
 app.use(express.static(__dirname + '/css'));
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 usersRouter = require('./Routes/userRoutes')(User);
+groupsRouter = require('./Routes/groupsRouter')(User);
 
 app.use('/api/users', usersRouter);
 
